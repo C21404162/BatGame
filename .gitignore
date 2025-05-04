@@ -1,0 +1,7 @@
+﻿.godot/
+*.import
+*.glb
+*.bin
+*.uid
+*.tres
+*.exe
