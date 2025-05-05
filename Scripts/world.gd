@@ -11,7 +11,8 @@ var bats_fed: int = 0
 @onready var feeding_area = $FeedingArea  # Add this Area3D to your world scene
 @onready var feeding_sound = $FeedingArea/FeedingSound
 @onready var teleport = $FeedingArea/Teleport
-@onready var player = $Player  # Reference to your player node
+@onready var yahoo = $FeedingArea/Yahoo
+@onready var player = $Player 
 
 func _process(delta):
 	
@@ -61,8 +62,10 @@ func feed_bat(bat: Node):
 		complete_quest()
 
 func complete_quest():
-	print("Quest complete! The character is satisfied.")
-	teleport.volume_db = -20
+	teleport.volume_db = -10
+	yahoo.volume_db = -10
+	yahoo.play()
+	await get_tree().create_timer(0.8).timeout
 	teleport.play()
 	await get_tree().create_timer(0.8).timeout
 	get_tree().quit()

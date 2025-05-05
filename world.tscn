@@ -1,4 +1,4 @@
-[gd_scene load_steps=95 format=3 uid="uid://daea0cguij4h2"]
+[gd_scene load_steps=96 format=3 uid="uid://daea0cguij4h2"]
 
 [ext_resource type="Script" uid="uid://0omf1qio7w7y" path="res://Scripts/world.gd" id="1_q6rjl"]
 [ext_resource type="Script" uid="uid://dkenkhwcrj22x" path="res://Scripts/Player.gd" id="1_vwaj1"]
@@ -39,6 +39,7 @@
 [ext_resource type="PackedScene" uid="uid://b8wksvfw0gewi" path="res://Models/Foliage/fol1_edit.glb" id="37_yx0jh"]
 [ext_resource type="AudioStream" uid="uid://di3v3imq72qtd" path="res://Sounds/SFX/eating.mp3" id="38_1ew0l"]
 [ext_resource type="AudioStream" uid="uid://13lk3btmpi8v" path="res://Sounds/SFX/teleport.wav" id="39_ryup7"]
+[ext_resource type="AudioStream" uid="uid://bd3xjg4r6na75" path="res://Sounds/SFX/yahoo.wav" id="40_ryup7"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_v853q"]
 sky_top_color = Color(0.0875817, 0.121094, 0.0859752, 1)
@@ -2048,6 +2049,9 @@ stream = ExtResource("38_1ew0l")
 
 [node name="Teleport" type="AudioStreamPlayer3D" parent="FeedingArea"]
 stream = ExtResource("39_ryup7")
+
+[node name="Yahoo" type="AudioStreamPlayer3D" parent="FeedingArea"]
+stream = ExtResource("40_ryup7")
 
 [connection signal="body_entered" from="FeedingArea" to="." method="_on_feeding_area_body_entered"]
 
