@@ -1587,7 +1587,7 @@ mesh = SubResource("PlaneMesh_qktwf")
 stream = ExtResource("30_qktwf")
 
 [node name="Boid3D" type="CharacterBody3D" parent="." groups=["Bat"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -19.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -23)
 script = ExtResource("31_bh8nc")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Boid3D"]
@@ -1701,7 +1701,7 @@ transform = Transform3D(-4.37114e-08, 1, 1.74846e-07, -1, -4.37114e-08, -7.64274
 transform = Transform3D(1.31134e-07, -1, -1.74846e-07, 1, 1.31134e-07, 2.29282e-14, 0, -1.74846e-07, 1, 0, 0, 0)
 
 [node name="Boid3D5" type="CharacterBody3D" parent="." groups=["Bat"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 2, -21)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 2, -21.5)
 script = ExtResource("31_bh8nc")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Boid3D5"]
@@ -1739,7 +1739,7 @@ transform = Transform3D(-4.37114e-08, 1, 1.74846e-07, -1, -4.37114e-08, -7.64274
 transform = Transform3D(1.31134e-07, -1, -1.74846e-07, 1, 1.31134e-07, 2.29282e-14, 0, -1.74846e-07, 1, 0, 0, 0)
 
 [node name="Boid3D6" type="CharacterBody3D" parent="." groups=["Bat"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 2, -21)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 2, -21.5)
 script = ExtResource("31_bh8nc")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Boid3D6"]

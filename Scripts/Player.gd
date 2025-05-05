@@ -34,12 +34,10 @@ const LAYER_PLAYER = 4
 @onready var left_hand_raycast = $lefthand/left_hand_raycast
 @onready var right_hand_raycast = $righthand/right_hand_raycast
 
-# Bat grabbing
-var grabbed_bats: Array[CharacterBody3D] = []  # Changed to CharacterBody3D
-const BAT_GRAB_STRENGTH = 0.8
-const BAT_RELEASE_IMPULSE = 2.0
-@export var bat_grab_distance = 1.5
-var bat_grab_offset := Vector3(0, -0.3, 0)  # Offset to grab lower on bat
+# Bat Grabbing
+var grabbed_bats: Dictionary = {}  # {hand_id: bat_reference}
+enum HAND {RIGHT, LEFT}
+const BAT_GRAB_OFFSET = Vector3(0, -0.3, 0)  # Adjust based on your bat model
 
 #arm joints
 @onready var grab_joint_left = $HingeJoint3D_Left
@@ -246,6 +244,19 @@ func setup_hands():
 	right_hand.inertia = Vector3(1, 1, 1)
 
 func _unhandled_input(event):
+	
+	if event.is_action_pressed("grab_left"):
+		if grabbed_bats.has(HAND.LEFT):
+			release_bat(HAND.LEFT)
+		else:
+			try_grab_bat(HAND.LEFT)
+	
+	if event.is_action_pressed("grab_right"):
+		if grabbed_bats.has(HAND.RIGHT):
+			release_bat(HAND.RIGHT)
+		else:
+			try_grab_bat(HAND.RIGHT)
+	
 	#pause
 	if event.is_action_pressed("esc"):
 		if pause_menu_instance:
@@ -315,19 +326,16 @@ func _physics_process(delta):
 	#
 
 	# Handle grabbed bats movement
-	for bat in grabbed_bats:
-		var hand_pos = left_hand.global_position if left_hand_grabbing else right_hand.global_position
-		hand_pos += bat_grab_offset
+	for hand_id in grabbed_bats:
+		var bat = grabbed_bats[hand_id]
+		var hand_pos = left_hand.global_position if hand_id == HAND.LEFT else right_hand.global_position
+		hand_pos += BAT_GRAB_OFFSET
 		
-		# Calculate desired position and move smoothly
-		var t = clamp(BAT_GRAB_STRENGTH * delta * 60, 0, 1)
-		bat.global_position = bat.global_position.lerp(hand_pos, t)
+		# Immediate position snap (no lerping for precise grabbing)
+		bat.global_position = hand_pos
+		bat.rotation = Vector3.ZERO  # Keep upright
 		
-		# Reset rotation to upright
-		bat.rotation = bat.rotation.lerp(Vector3.ZERO, delta * 5.0)
-		
-		# Manually call move_and_slide for the bat
-		bat.velocity = Vector3.ZERO
+		# Manually call move_and_slide to update position
 		bat.move_and_slide()
 		
 	if is_falling_spawn:
@@ -655,48 +663,47 @@ func check_grab():
 				hand_animation_player_right.play("close")
 				particles_hand(grab_point)
 
-func grab_bat(bat: CharacterBody3D, is_left_hand: bool):
-	if bat in grabbed_bats:
-		return
-		
-	grabbed_bats.append(bat)
+func try_grab_bat(hand_id: int):
+	var raycast = left_hand_raycast if hand_id == HAND.LEFT else right_hand_raycast
+	if raycast.is_colliding():
+		var collider = raycast.get_collider()
+		if collider and collider.is_in_group("Bat") and not collider.is_grabbed:
+			grab_bat(collider, hand_id)
+
+func grab_bat(bat: CharacterBody3D, hand_id: int):
+	# Release if already holding something
+	if grabbed_bats.has(hand_id):
+		release_bat(hand_id)
 	
-	# Disable bat's autonomous movement
-	if bat.has_method("set_movement_enabled"):
-		bat.set_movement_enabled(false)
-	
-	# Play sound
-	if grab_sounds.size() > 0:
-		var sound = left_hand_sound if is_left_hand else right_hand_sound
-		var random_index = randi() % grab_sounds.size()
-		sound.stream = grab_sounds[random_index]
-		sound.play()
+	# Call bat's grab method
+	bat.grab(hand_id)
+	grabbed_bats[hand_id] = bat
 	
 	# Visual feedback
-	if is_left_hand:
+	if hand_id == HAND.LEFT:
 		hand_animation_player_left.play("close")
-		left_hand_grabbing = true
 	else:
 		hand_animation_player_right.play("close")
-		right_hand_grabbing = true
+	
+	# Sound
+	#play_grab_sound(hand_id)
 
-func release_bat(bat: CharacterBody3D, is_left_hand: bool):
-	if bat in grabbed_bats:
-		# Re-enable bat's movement
-		if bat.has_method("set_movement_enabled"):
-			bat.set_movement_enabled(true)
-			# Apply release impulse
-			var release_dir = (bat.global_position - global_position).normalized()
-			bat.velocity = release_dir * BAT_RELEASE_IMPULSE
+func release_bat(hand_id: int):
+	if grabbed_bats.has(hand_id):
+		var bat = grabbed_bats[hand_id]
+		bat.release()
+		grabbed_bats.erase(hand_id)
 		
-		grabbed_bats.erase(bat)
-		
-		if is_left_hand:
+		# Visual feedback
+		if hand_id == HAND.LEFT:
 			hand_animation_player_left.play("default")
-			left_hand_grabbing = false
 		else:
 			hand_animation_player_right.play("default")
-			right_hand_grabbing = false
+		
+		# Small release impulse
+		var hand_pos = left_hand.global_position if hand_id == HAND.LEFT else right_hand.global_position
+		var release_dir = (bat.global_position - hand_pos).normalized()
+		bat.velocity = release_dir * 2.0  # Adjust impulse strength as needed
 
 func grab_object(hand_raycast: RayCast3D, is_left_hand: bool):
 	

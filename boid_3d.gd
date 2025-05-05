@@ -17,7 +17,7 @@ var _target_direction: Vector3 = Vector3.FORWARD
 var _wander_timer: float = 0.0
 var _flap_timer: float = 0.0
 var _current_vertical: float = 0.0
-var _random_wander: Vector3 = Vector3.ZERO  # This was missing!
+var _random_wander: Vector3 = Vector3.ZERO 
 @onready var raycasts: Array[RayCast3D] = [
 	$RayCast3D, $RayCast3D2, $RayCast3D3,
 	$RayCast3D4, $RayCast3D5, $RayCast3D6
@@ -26,12 +26,20 @@ var _random_wander: Vector3 = Vector3.ZERO  # This was missing!
 @onready var wing2: MeshInstance3D = $wing2
 
 var is_grabbed := false
-var disable_movement := false
+var grabber_id := -1  # -1 = not grabbed, 0 = left hand, 1 = right hand
 
-func set_movement_enabled(enabled: bool):
-	disable_movement = not enabled
-	if disable_movement:
-		velocity = Vector3.ZERO
+func grab(hand_id: int):
+	is_grabbed = true
+	grabber_id = hand_id
+	collision_layer = 0  # Disable all collisions
+	collision_mask = 0
+	
+func release():
+	is_grabbed = false
+	grabber_id = -1
+	collision_layer = 1  # Re-enable world collisions
+	collision_mask = 1
+	velocity = Vector3.ZERO
 
 func _ready():
 	_current_velocity = Vector3.FORWARD.rotated(Vector3.UP, randf_range(0, TAU)) * min_speed
@@ -45,8 +53,8 @@ func _ready():
 
 func _physics_process(delta):
 	
-	if disable_movement:
-		return  # Skip all movement logic when grabbed
+	if is_grabbed:
+		return  # Skip all movement when grabbed
 	
 	_wander_timer -= delta
 	_flap_timer += delta * 8.0
