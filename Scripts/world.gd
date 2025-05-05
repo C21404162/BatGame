@@ -43,10 +43,11 @@ func _on_speedrun_finished(time: float):
 
 func _on_feeding_area_body_entered(body: Node):
 	if body.is_in_group("Bat"):
+		print("BAT FED")
+		print(bats_fed)
 		# Check if bat is being carried by player
-		if player.is_bat_grabbed(body):
-			feed_bat(body)
-			player.release_grabbed_bat(body)  # New helper function we'll add to player
+		feed_bat(body)
+		player.release_grabbed_bat(body)  # New helper function we'll add to player
 
 func feed_bat(bat: Node):
 	bats_fed += 1
