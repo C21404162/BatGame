@@ -63,7 +63,7 @@ func feed_bat(bat: Node):
 
 func complete_quest():
 	teleport.volume_db = -10
-	yahoo.volume_db = -10
+	yahoo.volume_db = -15
 	yahoo.play()
 	await get_tree().create_timer(0.8).timeout
 	teleport.play()
