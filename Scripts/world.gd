@@ -64,6 +64,6 @@ func complete_quest():
 	print("Quest complete! The character is satisfied.")
 	teleport.volume_db = -20
 	teleport.play()
-	await get_tree().create_timer(0.5).timeout
+	await get_tree().create_timer(0.8).timeout
 	get_tree().quit()
 	# Add your quest completion logic here

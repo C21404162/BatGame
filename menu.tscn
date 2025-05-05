@@ -1,20 +1,17 @@
-[gd_scene load_steps=36 format=3 uid="uid://cw5ty64yjmos8"]
+[gd_scene load_steps=33 format=3 uid="uid://cw5ty64yjmos8"]
 
 [ext_resource type="Script" uid="uid://bmww3vy4va533" path="res://Scripts/menu.gd" id="1_3ru06"]
-[ext_resource type="PackedScene" uid="uid://8qoj8306fs56" path="res://Models/well_model.glb" id="2_3qr0f"]
 [ext_resource type="AudioStream" uid="uid://clehoi86kyos" path="res://Sounds/SFX/hover1.mp3" id="2_b0bxi"]
 [ext_resource type="FontFile" uid="uid://nly7k1yk8vc1" path="res://Fonts/NotoSansOgham-Regular.ttf" id="2_gdm1x"]
 [ext_resource type="Texture2D" uid="uid://d334hub33k2fn" path="res://Textures/IMG_2019.jpg" id="2_wnj5a"]
 [ext_resource type="AudioStream" uid="uid://b40ss0vvbrop4" path="res://Sounds/SFX/hover2.mp3" id="3_bvnap"]
 [ext_resource type="FontFile" uid="uid://c8vijpv4huy16" path="res://Fonts/ARIAL.TTF" id="3_pevfs"]
 [ext_resource type="Texture2D" uid="uid://diq7n02p7gbs4" path="res://Textures/wooden_plank_model_wood_bark.png" id="4_55s7h"]
-[ext_resource type="Script" uid="uid://ouoc36oagv13" path="res://Scripts/Menu_cam.gd" id="5_odhhc"]
+[ext_resource type="AudioStream" uid="uid://c68up00imowq5" path="res://Sounds/Music/Northern Journey Flute Song.mp3" id="9_oxnod"]
 [ext_resource type="Script" uid="uid://b5a1cdn2odwyu" path="res://mesh_instance_3d.gd" id="11_a1n8c"]
 [ext_resource type="Texture2D" uid="uid://guff740bkob4" path="res://Textures/moss_new.jpg" id="13_h2s18"]
-[ext_resource type="PackedScene" uid="uid://d1xdyp2dectgc" path="res://tree.tscn" id="13_sr76r"]
-[ext_resource type="AudioStream" uid="uid://chwnm5uwcahta" path="res://Sounds/Music/forest_sounds.mp3" id="14_05xk2"]
+[ext_resource type="Texture2D" uid="uid://7lb03orwxeme" path="res://bg.png" id="16_gd0jp"]
 [ext_resource type="PackedScene" uid="uid://bhf3jxhqefcyh" path="res://Models/Foliage/grass_final.glb" id="17_ppf5h"]
-[ext_resource type="Texture2D" uid="uid://3t1ckcdb2quh" path="res://Fonts/titleactual.png" id="18_28pvu"]
 [ext_resource type="Texture2D" uid="uid://dxn03o3k6f8d2" path="res://Textures/shitwall.png" id="18_560xd"]
 [ext_resource type="PackedScene" uid="uid://ceu435mpplepa" path="res://Models/Foliage/fol3_noback_edit.glb" id="18_qnmy6"]
 [ext_resource type="PackedScene" uid="uid://b8wksvfw0gewi" path="res://Models/Foliage/fol1_edit.glb" id="19_0vghe"]
@@ -47,79 +44,13 @@ uv1_triplanar = true
 
 [sub_resource type="Animation" id="Animation_anjw3"]
 length = 0.001
-tracks/0/type = "bezier"
+tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Menu_cam:position:x")
+tracks/0/path = NodePath("CanvasLayer/ColorRect:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(0.5, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
-}
-tracks/1/type = "bezier"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Menu_cam:position:y")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(4, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
-}
-tracks/2/type = "bezier"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Menu_cam:position:z")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(-4.5, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
-}
-tracks/3/type = "bezier"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Menu_cam:rotation:x")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(-0.261799, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
-}
-tracks/4/type = "bezier"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("Menu_cam:rotation:y")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
-}
-tracks/5/type = "bezier"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("Menu_cam:rotation:z")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
-}
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("CanvasLayer/ColorRect:modulate")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
@@ -129,79 +60,13 @@ tracks/6/keys = {
 [sub_resource type="Animation" id="Animation_vgmqi"]
 resource_name = "camera_into_well"
 length = 2.0
-tracks/0/type = "bezier"
+tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Menu_cam:position:x")
+tracks/0/path = NodePath("CanvasLayer/ColorRect:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"handle_modes": PackedInt32Array(0, 0),
-"points": PackedFloat32Array(0.5, -0.25, 0, 0.25, 0, 0.5, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0, 2)
-}
-tracks/1/type = "bezier"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Menu_cam:position:y")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"handle_modes": PackedInt32Array(0, 0),
-"points": PackedFloat32Array(4, -0.25, 0, 0.25, 0, 3, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0, 1.5)
-}
-tracks/2/type = "bezier"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Menu_cam:position:z")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"handle_modes": PackedInt32Array(0, 0),
-"points": PackedFloat32Array(-4.5, -0.25, 0, 0.25, 0, -9.5, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0, 1.5)
-}
-tracks/3/type = "bezier"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Menu_cam:rotation:x")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"handle_modes": PackedInt32Array(0, 0),
-"points": PackedFloat32Array(-0.261799, -0.25, 0, 0.25, 0, -0.785398, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0, 1.5)
-}
-tracks/4/type = "bezier"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("Menu_cam:rotation:y")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"handle_modes": PackedInt32Array(0, 0),
-"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0, 2)
-}
-tracks/5/type = "bezier"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("Menu_cam:rotation:z")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"handle_modes": PackedInt32Array(0, 0),
-"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0, 2)
-}
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("CanvasLayer/ColorRect:modulate")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
 "times": PackedFloat32Array(0, 1.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
@@ -438,17 +303,10 @@ theme_override_fonts/font = ExtResource("3_pevfs")
 theme_override_font_sizes/font_size = 38
 text = "exit"
 
-[node name="Menu_cam" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0.5, 4, -4.5)
-script = ExtResource("5_odhhc")
-
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -4)
 size = Vector3(100, 0, 100)
 material = SubResource("StandardMaterial3D_epqux")
-
-[node name="well_model" parent="." instance=ExtResource("2_3qr0f")]
-transform = Transform3D(0.12, 0, 0, 0, 0.12, 0, 0, 0, 0.12, 0.5, -1, -12)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24, 0, -40)
@@ -459,7 +317,7 @@ script = ExtResource("11_a1n8c")
 [node name="HoverSoundPlayer" type="AudioStreamPlayer3D" parent="."]
 
 [node name="forest_ambience" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("14_05xk2")
+stream = ExtResource("9_oxnod")
 volume_db = -38.0
 
 [node name="camera_into_well" type="AnimationPlayer" parent="."]
@@ -530,12 +388,6 @@ text = "Speedrun Mode"
 
 [node name="SpeedrunCheckbox" type="CheckBox" parent="options_panel/VBoxContainer"]
 layout_mode = 2
-
-[node name="Titleactual" type="Sprite2D" parent="."]
-position = Vector2(1000, -750)
-texture = ExtResource("18_28pvu")
-
-[node name="tree" parent="." instance=ExtResource("13_sr76r")]
 
 [node name="tree2" type="MeshInstance3D" parent="."]
 transform = Transform3D(1.69784, 0, -2.47333, 0, 3, 0, 2.47333, 0, 1.69784, 6.39152, 10, -13.5)
@@ -4162,6 +4014,12 @@ transform = Transform3D(0.444424, 0.116438, -0.888217, -0.0504869, 0.993196, 0.1
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.502193, -11.5)
 mesh = SubResource("SphereMesh_u4pu3")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+show_behind_parent = true
+position = Vector2(951, -422)
+scale = Vector2(0.942124, 1.02385)
+texture = ExtResource("16_gd0jp")
 
 [connection signal="mouse_entered" from="VBoxContainer/continue" to="." method="_on_mouse_entered_continue"]
 [connection signal="mouse_exited" from="VBoxContainer/continue" to="." method="_on_continue_mouse_exited"]
