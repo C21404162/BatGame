@@ -335,11 +335,8 @@ func _physics_process(delta):
 		var hand_pos = left_hand.global_position if hand_id == HAND.LEFT else right_hand.global_position
 		hand_pos += BAT_GRAB_OFFSET
 		
-		# Immediate position snap (no lerping for precise grabbing)
 		bat.global_position = hand_pos
-		bat.rotation = Vector3.ZERO  # Keep upright
-		
-		# Manually call move_and_slide to update position
+		bat.rotation = Vector3.ZERO  
 		bat.move_and_slide()
 		
 	if is_falling_spawn:
