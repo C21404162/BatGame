@@ -1,4 +1,4 @@
-[gd_scene load_steps=86 format=3 uid="uid://daea0cguij4h2"]
+[gd_scene load_steps=87 format=3 uid="uid://daea0cguij4h2"]
 
 [ext_resource type="Script" uid="uid://0omf1qio7w7y" path="res://Scripts/world.gd" id="1_q6rjl"]
 [ext_resource type="Script" uid="uid://dkenkhwcrj22x" path="res://Scripts/Player.gd" id="1_vwaj1"]
@@ -1204,6 +1204,9 @@ uv1_triplanar = true
 albedo_texture = ExtResource("8_w86qp")
 uv1_triplanar = true
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_my276"]
+size = Vector3(1.8, 2.8, 1.5)
+
 [node name="World" type="Node3D"]
 script = ExtResource("1_q6rjl")
 
@@ -1920,6 +1923,16 @@ transform = Transform3D(0.261046, -0.0904977, -0.532602, 0.0398291, 0.593136, -0
 
 [node name="fol1_edit3" parent="." instance=ExtResource("37_yx0jh")]
 transform = Transform3D(0.597526, -0.0343384, 0.0422284, 0.0398291, 0.593136, -0.0812618, -0.0370947, 0.0837299, 0.59297, 2.69661, -0.115545, -3.67553)
+
+[node name="FeedingArea" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0, -3.5)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="FeedingArea"]
+shape = SubResource("BoxShape3D_my276")
+
+[node name="FeedingSound" type="AudioStreamPlayer3D" parent="FeedingArea"]
+
+[connection signal="body_entered" from="FeedingArea" to="." method="_on_feeding_area_body_entered"]
 
 [editable path="Player/lefthand/hand_left_rigged"]
 [editable path="Player/righthand/hand_right_rigged"]

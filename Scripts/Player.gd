@@ -35,6 +35,10 @@ const LAYER_PLAYER = 4
 @onready var right_hand_raycast = $righthand/right_hand_raycast
 
 # Bat Grabbing
+var bats_fed: int = 0
+@onready var feeding_area = $FeedingArea  # Add Area3D node to your player scene
+@onready var feeding_sound = $FeedingSound  # Add AudioStreamPlayer
+@export var bats_required: int = 5
 var grabbed_bats: Dictionary = {}  # {hand_id: bat_reference}
 enum HAND {RIGHT, LEFT}
 const BAT_GRAB_OFFSET = Vector3(0, -0.3, 0)  # Adjust based on your bat model
@@ -949,3 +953,16 @@ func _on_area_3d_2_body_entered(body):
 func _on_rock_destroyed():
 	rock_instance = null 
 	print("rock deleted")  
+	
+# Add to Player.gd
+func is_bat_grabbed(bat: Node) -> bool:
+	for hand_id in grabbed_bats:
+		if grabbed_bats[hand_id] == bat:
+			return true
+	return false
+
+func release_grabbed_bat(bat: Node):
+	for hand_id in grabbed_bats:
+		if grabbed_bats[hand_id] == bat:
+			release_bat(hand_id)
+			break
