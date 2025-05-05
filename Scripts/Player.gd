@@ -34,14 +34,14 @@ const LAYER_PLAYER = 4
 @onready var left_hand_raycast = $lefthand/left_hand_raycast
 @onready var right_hand_raycast = $righthand/right_hand_raycast
 
-# Bat Grabbing
+#bat Grabbing
 var bats_fed: int = 0
-@onready var feeding_area = $FeedingArea  # Add Area3D node to your player scene
-@onready var feeding_sound = $FeedingSound  # Add AudioStreamPlayer
+@onready var feeding_area = $FeedingArea  
+@onready var feeding_sound = $FeedingSound  
 @export var bats_required: int = 5
-var grabbed_bats: Dictionary = {}  # {hand_id: bat_reference}
+var grabbed_bats: Dictionary = {}  
 enum HAND {RIGHT, LEFT}
-const BAT_GRAB_OFFSET = Vector3(0, -0.3, 0)  # Adjust based on your bat model
+const BAT_GRAB_OFFSET = Vector3(0, -0.3, 0)  
 
 #arm joints
 @onready var grab_joint_left = $HingeJoint3D_Left
@@ -329,7 +329,7 @@ func _unhandled_input(event):
 func _physics_process(delta):
 	#
 
-	# Handle grabbed bats movement
+
 	for hand_id in grabbed_bats:
 		var bat = grabbed_bats[hand_id]
 		var hand_pos = left_hand.global_position if hand_id == HAND.LEFT else right_hand.global_position
@@ -639,19 +639,17 @@ func check_grab():
 					particles_hand(grab_point)
 					
 			elif collider and collider.is_in_group("Bat"):
-				# New bat grabbing logic
 				grab_bat(collider, true)
 				hand_animation_player_left.play("close")
 				particles_hand(grab_point)
 	
-	# Right hand grab logic (same structure as left)
+	# Right hand grab logic (same as left)
 	if right_hand_reaching and not right_hand_grabbing and right_hand_cooldown <= 0:
 		if right_hand_raycast.is_colliding():
 			var collider = right_hand_raycast.get_collider()
 			var grab_point = right_hand_raycast.get_collision_point()
 			
 			if collider and collider.is_in_group("Climbable"):
-				# Existing climbing logic
 				var distance_to_grab = global_position.distance_to(grab_point)
 				if distance_to_grab <= MAX_GRAB_DISTANCE:
 					grab_object(right_hand_raycast, false)
@@ -659,7 +657,6 @@ func check_grab():
 					particles_hand(grab_point)
 					
 			elif collider and collider.is_in_group("Bat"):
-				# New bat grabbing logic
 				grab_bat(collider, false)
 				hand_animation_player_right.play("close")
 				particles_hand(grab_point)
@@ -672,15 +669,11 @@ func try_grab_bat(hand_id: int):
 			grab_bat(collider, hand_id)
 
 func grab_bat(bat: CharacterBody3D, hand_id: int):
-	# Release if already holding something
 	if grabbed_bats.has(hand_id):
 		release_bat(hand_id)
 	
-	# Call bat's grab method
 	bat.grab(hand_id)
 	grabbed_bats[hand_id] = bat
-	
-	# Visual feedback
 	if hand_id == HAND.LEFT:
 		hand_animation_player_left.play("close")
 	else:
@@ -694,17 +687,14 @@ func release_bat(hand_id: int):
 		var bat = grabbed_bats[hand_id]
 		bat.release()
 		grabbed_bats.erase(hand_id)
-		
-		# Visual feedback
 		if hand_id == HAND.LEFT:
 			hand_animation_player_left.play("default")
 		else:
 			hand_animation_player_right.play("default")
 		
-		# Small release impulse
 		var hand_pos = left_hand.global_position if hand_id == HAND.LEFT else right_hand.global_position
 		var release_dir = (bat.global_position - hand_pos).normalized()
-		bat.velocity = release_dir * 2.0  # Adjust impulse strength as needed
+		bat.velocity = release_dir * 2.0  
 
 func grab_object(hand_raycast: RayCast3D, is_left_hand: bool):
 	
@@ -951,7 +941,6 @@ func _on_rock_destroyed():
 	rock_instance = null 
 	print("rock deleted")  
 	
-# Add to Player.gd
 func is_bat_grabbed(bat: Node) -> bool:
 	for hand_id in grabbed_bats:
 		if grabbed_bats[hand_id] == bat:

@@ -1,6 +1,5 @@
 extends CharacterBody3D
 
-# Flight parameters
 @export var max_speed: float = 9.0
 @export var min_speed: float = 5.0
 @export var acceleration: float = 5.0
@@ -11,7 +10,7 @@ extends CharacterBody3D
 @export var max_vertical_change: float = 0.8
 @export var vertical_speed: float = 3.5
 
-# Internal variables - ALL declared here
+
 var _current_velocity: Vector3 = Vector3.ZERO
 var _target_direction: Vector3 = Vector3.FORWARD
 var _wander_timer: float = 0.0
@@ -26,18 +25,18 @@ var _random_wander: Vector3 = Vector3.ZERO
 @onready var wing2: MeshInstance3D = $wing2
 
 var is_grabbed := false
-var grabber_id := -1  # -1 = not grabbed, 0 = left hand, 1 = right hand
+var grabber_id := -1  
 
 func grab(hand_id: int):
 	is_grabbed = true
 	grabber_id = hand_id
-	collision_layer = 0  # Disable all collisions
+	collision_layer = 0  
 	collision_mask = 0
 	
 func release():
 	is_grabbed = false
 	grabber_id = -1
-	collision_layer = 1  # Re-enable world collisions
+	collision_layer = 1 
 	collision_mask = 1
 	velocity = Vector3.ZERO
 
@@ -54,14 +53,14 @@ func _ready():
 func _physics_process(delta):
 	
 	if is_grabbed:
-		return  # Skip all movement when grabbed
+		return  
 	
 	_wander_timer -= delta
 	_flap_timer += delta * 8.0
 	_current_vertical = sin(_flap_timer) * max_vertical_change
 	
 	if _wander_timer <= 0:
-		_random_wander = Vector3(  # Now properly declared
+		_random_wander = Vector3(  
 			randf_range(-1.2, 1.2),
 			randf_range(-0.3, 0.4),
 			randf_range(-1.2, 1.2)

@@ -8,7 +8,7 @@ extends Node3D
 
 var bats_fed: int = 0
 @export var bats_required: int = 5
-@onready var feeding_area = $FeedingArea  # Add this Area3D to your world scene
+@onready var feeding_area = $FeedingArea  
 @onready var feeding_sound = $FeedingArea/FeedingSound
 @onready var teleport = $FeedingArea/Teleport
 @onready var yahoo = $FeedingArea/Yahoo
@@ -48,9 +48,8 @@ func _on_feeding_area_body_entered(body: Node):
 	if body.is_in_group("Bat"):
 		print("BAT FED")
 		print(bats_fed)
-		# Check if bat is being carried by player
 		feed_bat(body)
-		player.release_grabbed_bat(body)  # New helper function we'll add to player
+		player.release_grabbed_bat(body) 
 
 func feed_bat(bat: Node):
 	feeding_sound.volume_db = -20
@@ -62,11 +61,10 @@ func feed_bat(bat: Node):
 		complete_quest()
 
 func complete_quest():
-	teleport.volume_db = -10
-	yahoo.volume_db = -15
+	teleport.volume_db = -20
+	yahoo.volume_db = -20
 	yahoo.play()
 	await get_tree().create_timer(0.8).timeout
 	teleport.play()
 	await get_tree().create_timer(0.8).timeout
 	get_tree().quit()
-	# Add your quest completion logic here
