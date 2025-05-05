@@ -18,13 +18,20 @@ var _wander_timer: float = 0.0
 var _flap_timer: float = 0.0
 var _current_vertical: float = 0.0
 var _random_wander: Vector3 = Vector3.ZERO  # This was missing!
-
 @onready var raycasts: Array[RayCast3D] = [
 	$RayCast3D, $RayCast3D2, $RayCast3D3,
 	$RayCast3D4, $RayCast3D5, $RayCast3D6
 ]
 @onready var wing1: MeshInstance3D = $wing1
 @onready var wing2: MeshInstance3D = $wing2
+
+var is_grabbed := false
+var disable_movement := false
+
+func set_movement_enabled(enabled: bool):
+	disable_movement = not enabled
+	if disable_movement:
+		velocity = Vector3.ZERO
 
 func _ready():
 	_current_velocity = Vector3.FORWARD.rotated(Vector3.UP, randf_range(0, TAU)) * min_speed
@@ -37,6 +44,10 @@ func _ready():
 			ray.enabled = true
 
 func _physics_process(delta):
+	
+	if disable_movement:
+		return  # Skip all movement logic when grabbed
+	
 	_wander_timer -= delta
 	_flap_timer += delta * 8.0
 	_current_vertical = sin(_flap_timer) * max_vertical_change
