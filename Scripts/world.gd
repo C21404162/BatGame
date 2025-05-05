@@ -22,8 +22,8 @@ func _ready() -> void:
 	GameManager.speedrun_finished.connect(_on_speedrun_finished)
 	update_speedrun_ui(GameManager.speedrun_mode)
 	fade_in.play("fade_in")
-	ambience.play()
-	ambience.volume_db = -20
+	#ambience.play()
+	#ambience.volume_db = -20
 	speedrun_timer_label.visible = GameManager.speedrun_mode
 	if GameManager.speedrun_mode:
 		GameManager.start_speedrun()

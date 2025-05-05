@@ -4,6 +4,8 @@ extends RayCast3D
 @onready var dialogue_label: Label = $"../../../../Dialogue/Panel/dialogue_label"
 @onready var dialogue_panel: Panel = $"../../../../Dialogue/Panel"
 
+@onready var ambience = $"../../../../ambience"
+
 @onready var player: CharacterBody3D = $"../../.."
 
 const DialogueResource = preload("res://dialogue_resource.gd")
@@ -95,6 +97,8 @@ func show_dialogue_line() -> void:
 		is_animating_text = false  
 	else:
 		print("DIALOGUEEND")	
+		ambience.play()
+		ambience.volume_db = -20
 		end_dialogue()
 
 func next_line() -> void:

@@ -34,6 +34,12 @@ const LAYER_PLAYER = 4
 @onready var left_hand_raycast = $lefthand/left_hand_raycast
 @onready var right_hand_raycast = $righthand/right_hand_raycast
 
+# Bat grabbing
+var grabbed_bats: Array[RigidBody3D] = []
+const BAT_GRAB_FORCE = 8.0
+const BAT_RELEASE_FORCE = 3.0
+@export var bat_grab_distance = 2.0
+
 #arm joints
 @onready var grab_joint_left = $HingeJoint3D_Left
 @onready var grab_joint_right = $HingeJoint3D_Right
@@ -305,7 +311,21 @@ func _unhandled_input(event):
 			collision_mask = LAYER_WORLD
 				
 func _physics_process(delta):
-	
+	#
+
+	# Handle grabbed bats physics
+	for bat in grabbed_bats:
+		var hand_pos = left_hand.global_position if left_hand_grabbing else right_hand.global_position
+		var bat_to_hand = hand_pos - bat.global_position
+		var distance = bat_to_hand.length()
+		
+		if distance > bat_grab_distance:
+			# Apply force to pull bat toward hand
+			var pull_force = bat_to_hand.normalized() * BAT_GRAB_FORCE * distance
+			bat.apply_central_force(pull_force)
+			
+			# Add some rotation damping
+			bat.angular_velocity = bat.angular_velocity.lerp(Vector3.ZERO, delta * 5.0)
 		
 	if is_falling_spawn:
 		fall_timer -= delta
@@ -589,42 +609,93 @@ func break_wood(collider: Node, is_left_hand: bool):
 	#broken_surfaces[collider_id] = RESPAWN_TIME
 
 func check_grab():
-	
 	if is_falling_spawn:
 		return
+		
 	# Left hand grab logic
 	if left_hand_reaching and not left_hand_grabbing and left_hand_cooldown <= 0:
 		if left_hand_raycast.is_colliding():
 			var collider = left_hand_raycast.get_collider()
-			# Group check
+			var grab_point = left_hand_raycast.get_collision_point()
+			
 			if collider and collider.is_in_group("Climbable"):
-				var grab_point = left_hand_raycast.get_collision_point()
+				# Existing climbing logic
 				var distance_to_grab = global_position.distance_to(grab_point)
-				# Grab if in range
 				if distance_to_grab <= MAX_GRAB_DISTANCE:
 					grab_object(left_hand_raycast, true)
 					hand_animation_player_left.play("close")
-					
-					# Grab sound + fx
 					particles_hand(grab_point)
-					# grab_sound.play()
-
-	# Right hand grab logic
+					
+			elif collider and collider.is_in_group("Bat"):
+				# New bat grabbing logic
+				grab_bat(collider, true)
+				hand_animation_player_left.play("close")
+				particles_hand(grab_point)
+	
+	# Right hand grab logic (same structure as left)
 	if right_hand_reaching and not right_hand_grabbing and right_hand_cooldown <= 0:
 		if right_hand_raycast.is_colliding():
 			var collider = right_hand_raycast.get_collider()
-			# Group check
+			var grab_point = right_hand_raycast.get_collision_point()
+			
 			if collider and collider.is_in_group("Climbable"):
-				var grab_point = right_hand_raycast.get_collision_point()
+				# Existing climbing logic
 				var distance_to_grab = global_position.distance_to(grab_point)
-				# Grab if in range
 				if distance_to_grab <= MAX_GRAB_DISTANCE:
 					grab_object(right_hand_raycast, false)
 					hand_animation_player_right.play("close")
-					
-					# Grab sound + fx
 					particles_hand(grab_point)
-					# grab_sound.play()
+					
+			elif collider and collider.is_in_group("Bat"):
+				# New bat grabbing logic
+				grab_bat(collider, false)
+				hand_animation_player_right.play("close")
+				particles_hand(grab_point)
+
+func grab_bat(bat: RigidBody3D, is_left_hand: bool):
+	if bat in grabbed_bats:
+		return
+		
+	# Add to grabbed bats array
+	grabbed_bats.append(bat)
+	
+	# Play sound
+	if grab_sounds.size() > 0:
+		var sound = left_hand_sound if is_left_hand else right_hand_sound
+		var random_index = randi() % grab_sounds.size()
+		while random_index == last_grab_sound_index:
+			random_index = randi() % grab_sounds.size()
+		last_grab_sound_index = random_index
+		
+		sound.volume_db = -20
+		sound.pitch_scale = randf_range(0.9, 1.1)
+		sound.stream = grab_sounds[random_index]
+		sound.play()
+	
+	# Visual feedback
+	if is_left_hand:
+		hand_animation_player_left.play("close")
+		left_hand_grabbing = true
+	else:
+		hand_animation_player_right.play("close")
+		right_hand_grabbing = true
+
+func release_bat(bat: RigidBody3D, is_left_hand: bool):
+	if bat in grabbed_bats:
+		# Apply small release force
+		var release_dir = (bat.global_position - global_position).normalized()
+		bat.apply_central_impulse(release_dir * BAT_RELEASE_FORCE)
+		
+		# Remove from array
+		grabbed_bats.erase(bat)
+		
+		# Visual feedback
+		if is_left_hand:
+			hand_animation_player_left.play("default")
+			left_hand_grabbing = false
+		else:
+			hand_animation_player_right.play("default")
+			right_hand_grabbing = false
 
 func grab_object(hand_raycast: RayCast3D, is_left_hand: bool):
 	
@@ -710,6 +781,9 @@ func release_grab(is_left_hand: bool):
 		right_hand_grabbing = false
 		right_hand_rotation_locked = false  # Unlock right hand rotation
 	print("Released", "left" if is_left_hand else "right", "hand")
+	
+	
+	
 
 func break_surface(collider: Node):
 	if collider:
