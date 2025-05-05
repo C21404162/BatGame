@@ -1,4 +1,4 @@
-[gd_scene load_steps=87 format=3 uid="uid://daea0cguij4h2"]
+[gd_scene load_steps=89 format=3 uid="uid://daea0cguij4h2"]
 
 [ext_resource type="Script" uid="uid://0omf1qio7w7y" path="res://Scripts/world.gd" id="1_q6rjl"]
 [ext_resource type="Script" uid="uid://dkenkhwcrj22x" path="res://Scripts/Player.gd" id="1_vwaj1"]
@@ -37,6 +37,8 @@
 [ext_resource type="Material" uid="uid://rt8kwy52hryb" path="res://Materials/highlight.tres" id="34_w44yn"]
 [ext_resource type="PackedScene" uid="uid://ceu435mpplepa" path="res://Models/Foliage/fol3_noback_edit.glb" id="35_my276"]
 [ext_resource type="PackedScene" uid="uid://b8wksvfw0gewi" path="res://Models/Foliage/fol1_edit.glb" id="37_yx0jh"]
+[ext_resource type="AudioStream" uid="uid://di3v3imq72qtd" path="res://Sounds/SFX/eating.mp3" id="38_1ew0l"]
+[ext_resource type="AudioStream" uid="uid://13lk3btmpi8v" path="res://Sounds/SFX/teleport.wav" id="39_ryup7"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_v853q"]
 sky_top_color = Color(0.0875817, 0.121094, 0.0859752, 1)
@@ -1931,6 +1933,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0, -3.5)
 shape = SubResource("BoxShape3D_my276")
 
 [node name="FeedingSound" type="AudioStreamPlayer3D" parent="FeedingArea"]
+stream = ExtResource("38_1ew0l")
+
+[node name="Teleport" type="AudioStreamPlayer3D" parent="FeedingArea"]
+stream = ExtResource("39_ryup7")
 
 [connection signal="body_entered" from="FeedingArea" to="." method="_on_feeding_area_body_entered"]
 

@@ -9,6 +9,8 @@ extends Node3D
 var bats_fed: int = 0
 @export var bats_required: int = 5
 @onready var feeding_area = $FeedingArea  # Add this Area3D to your world scene
+@onready var feeding_sound = $FeedingArea/FeedingSound
+@onready var teleport = $FeedingArea/Teleport
 @onready var player = $Player  # Reference to your player node
 
 func _process(delta):
@@ -50,13 +52,18 @@ func _on_feeding_area_body_entered(body: Node):
 		player.release_grabbed_bat(body)  # New helper function we'll add to player
 
 func feed_bat(bat: Node):
+	feeding_sound.volume_db = -20
+	feeding_sound.play()
 	bats_fed += 1
 	print("Bats fed: ", bats_fed)
 	bat.queue_free()
-	
 	if bats_fed >= bats_required:
 		complete_quest()
 
 func complete_quest():
 	print("Quest complete! The character is satisfied.")
+	teleport.volume_db = -20
+	teleport.play()
+	await get_tree().create_timer(0.5).timeout
+	get_tree().quit()
 	# Add your quest completion logic here
