@@ -1,4 +1,4 @@
-[gd_scene load_steps=89 format=3 uid="uid://daea0cguij4h2"]
+[gd_scene load_steps=95 format=3 uid="uid://daea0cguij4h2"]
 
 [ext_resource type="Script" uid="uid://0omf1qio7w7y" path="res://Scripts/world.gd" id="1_q6rjl"]
 [ext_resource type="Script" uid="uid://dkenkhwcrj22x" path="res://Scripts/Player.gd" id="1_vwaj1"]
@@ -1186,6 +1186,30 @@ uv1_triplanar = true
 albedo_texture = ExtResource("8_w86qp")
 uv1_triplanar = true
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ytpkv"]
+albedo_texture = ExtResource("3_gggvi")
+uv1_triplanar = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jas3d"]
+albedo_texture = ExtResource("3_gggvi")
+uv1_triplanar = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7htu6"]
+albedo_texture = ExtResource("3_gggvi")
+uv1_triplanar = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7qk3m"]
+albedo_texture = ExtResource("3_gggvi")
+uv1_triplanar = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xpnt2"]
+albedo_texture = ExtResource("3_gggvi")
+uv1_triplanar = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ruyqm"]
+albedo_texture = ExtResource("3_gggvi")
+uv1_triplanar = true
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w44yn"]
 albedo_texture = ExtResource("8_w86qp")
 uv1_triplanar = true
@@ -1266,6 +1290,22 @@ transform = Transform3D(-1, -6.18172e-08, -6.18172e-08, 0, 0.707107, -0.707107, 
 mesh = SubResource("BoxMesh_1ew0l")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="Map/MeshInstance3D4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.242193, -0.0127554)
+light_color = Color(1, 0.851714, 0.491287, 1)
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="Map"]
+transform = Transform3D(-1, -6.18172e-08, -6.18172e-08, 0, 0.707107, -0.707107, 8.74228e-08, -0.707107, -0.707107, -1.5, 2, -32.5838)
+mesh = SubResource("BoxMesh_1ew0l")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Map/MeshInstance3D5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.242193, -0.0127554)
+light_color = Color(1, 0.851714, 0.491287, 1)
+
+[node name="MeshInstance3D6" type="MeshInstance3D" parent="Map"]
+transform = Transform3D(-1, -6.18172e-08, -6.18172e-08, 0, 0.707107, -0.707107, 8.74228e-08, -0.707107, -0.707107, 1.5, 2, -32.5838)
+mesh = SubResource("BoxMesh_1ew0l")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Map/MeshInstance3D6"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.242193, -0.0127554)
 light_color = Color(1, 0.851714, 0.491287, 1)
 
@@ -1592,7 +1632,7 @@ mesh = SubResource("PlaneMesh_qktwf")
 stream = ExtResource("30_qktwf")
 
 [node name="Boid3D2" type="CharacterBody3D" parent="." groups=["Bat"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 2, -19.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 2, -19.5)
 script = ExtResource("31_bh8nc")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Boid3D2"]
@@ -1630,7 +1670,7 @@ transform = Transform3D(-4.37114e-08, 1, 1.74846e-07, -1, -4.37114e-08, -7.64274
 transform = Transform3D(1.31134e-07, -1, -1.74846e-07, 1, 1.31134e-07, 2.29282e-14, 0, -1.74846e-07, 1, 0, 0, 0)
 
 [node name="Boid3D3" type="CharacterBody3D" parent="." groups=["Bat"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 2, -19.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 2, -19.5)
 script = ExtResource("31_bh8nc")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Boid3D3"]
@@ -1706,7 +1746,7 @@ transform = Transform3D(-4.37114e-08, 1, 1.74846e-07, -1, -4.37114e-08, -7.64274
 transform = Transform3D(1.31134e-07, -1, -1.74846e-07, 1, 1.31134e-07, 2.29282e-14, 0, -1.74846e-07, 1, 0, 0, 0)
 
 [node name="Boid3D6" type="CharacterBody3D" parent="." groups=["Bat"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -24)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -38)
 script = ExtResource("31_bh8nc")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Boid3D6"]
@@ -1742,6 +1782,11 @@ transform = Transform3D(-4.37114e-08, 1, 1.74846e-07, -1, -4.37114e-08, -7.64274
 
 [node name="RayCast3D6" type="RayCast3D" parent="Boid3D6"]
 transform = Transform3D(1.31134e-07, -1, -1.74846e-07, 1, 1.31134e-07, 2.29282e-14, 0, -1.74846e-07, 1, 0, 0, 0)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Boid3D6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.285314, 0.0256996)
+light_color = Color(0.726563, 0.629785, 0.232075, 1)
+light_energy = 0.8
 
 [node name="Boid3D7" type="CharacterBody3D" parent="." groups=["Bat"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 2, -21.5)
@@ -1840,6 +1885,72 @@ transform = Transform3D(1.31134e-07, 0, 1, 0, 1, 0, -1, 0, 1.31134e-07, -0.2495,
 use_collision = true
 size = Vector3(0.001, 6.5, 16.5)
 material = SubResource("StandardMaterial3D_bh8nc")
+
+[node name="CSGBox3D16" type="CSGBox3D" parent="CSGBox3D14"]
+transform = Transform3D(1, 0, -1.84741e-13, 0, 1, 0, 1.84741e-13, 0, 1, 3.5, 0.25, 0.25)
+use_collision = true
+size = Vector3(0.001, 7, 8)
+material = SubResource("StandardMaterial3D_bh8nc")
+
+[node name="CSGBox3D17" type="CSGBox3D" parent="CSGBox3D14"]
+transform = Transform3D(-4.37112e-08, 0, 1, 0, 1, 0, -1, 0, -4.37112e-08, 7.5, 0.25, -3.75)
+use_collision = true
+size = Vector3(0.001, 7, 8)
+material = SubResource("StandardMaterial3D_bh8nc")
+
+[node name="CSGBox3D18" type="CSGBox3D" parent="CSGBox3D14"]
+transform = Transform3D(-4.37112e-08, 0, 1, 0, 1, 0, -1, 0, -4.37112e-08, 7.5, 0, 4.25)
+use_collision = true
+size = Vector3(0.001, 6.5, 8)
+material = SubResource("StandardMaterial3D_bh8nc")
+
+[node name="CSGBox3D19" type="CSGBox3D" parent="CSGBox3D14"]
+transform = Transform3D(1, 0, -1.84741e-13, 0, 1, 0, 1.84741e-13, 0, 1, 11.5, 0.25, 0.249999)
+use_collision = true
+size = Vector3(0.001, 7, 8)
+material = SubResource("StandardMaterial3D_bh8nc")
+
+[node name="CSGBox3D20" type="CSGBox3D" parent="CSGBox3D14"]
+transform = Transform3D(-4.37114e-08, -1, 1.31134e-07, 1, -4.37114e-08, -1.31134e-07, 1.31134e-07, 1.31134e-07, 1, 7.5, 3.5, 0.249999)
+use_collision = true
+size = Vector3(0.001, 8.5, 9)
+material = SubResource("StandardMaterial3D_bh8nc")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="CSGBox3D14"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, -0.855988, 0.25)
+operation = 2
+size = Vector3(5, 2.28802, 1.5)
+material = SubResource("StandardMaterial3D_ytpkv")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="CSGBox3D14"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.75, -0.75, 1.5005)
+size = Vector3(3.5, 2.5, 0.001)
+material = SubResource("StandardMaterial3D_jas3d")
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="CSGBox3D14"]
+transform = Transform3D(1, 1.31134e-07, -1.31134e-07, -1.31134e-07, -4.37114e-08, -1, -1.31134e-07, 1, -4.37114e-08, 1.75, -2, 0.25)
+size = Vector3(3.5, 3, 0.001)
+material = SubResource("StandardMaterial3D_7htu6")
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="CSGBox3D14"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.75, -0.75, -0.9995)
+size = Vector3(3.5, 2.5, 0.001)
+material = SubResource("StandardMaterial3D_7qk3m")
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="CSGBox3D14"]
+transform = Transform3D(1, 1.31134e-07, -1.31134e-07, -1.31134e-07, -4.37114e-08, -1, -1.31134e-07, 1, -4.37114e-08, 1.75, 0.5, 0.25)
+size = Vector3(3.5, 3, 0.001)
+material = SubResource("StandardMaterial3D_xpnt2")
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="CSGBox3D14"]
+transform = Transform3D(0.792439, -0.609952, 2.72184e-08, 0.609952, 0.792439, -7.99854e-08, 2.72184e-08, 7.99854e-08, 1, -0.908037, -3.29866, 0.25)
+size = Vector3(3, 1, 3.5)
+material = SubResource("StandardMaterial3D_ruyqm")
+
+[node name="CSGBox3D7" type="CSGBox3D" parent="CSGBox3D14"]
+transform = Transform3D(-0.794266, -0.60757, 2.35289e-07, 0.60757, -0.794266, -7.96731e-08, 2.35289e-07, 7.9673e-08, 1, 4.37961, -3.29348, 0.249999)
+size = Vector3(3, 1, 3.5)
+material = SubResource("StandardMaterial3D_ruyqm")
 
 [node name="CSGBox3D10" type="CSGBox3D" parent="."]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 4.5005, 3.25, -12.75)
